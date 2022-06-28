@@ -3,6 +3,7 @@ import {
     useQuery,
     gql
 } from "@apollo/client";
+import {Space, Spin} from 'antd';
 import {
     ColumnBands,
     FilteringState,
@@ -63,53 +64,55 @@ interface Animal {
     }
 }
 
-// interface BandCellProps {
-//     children: React.ReactNode,
-//     tableRow: TableRow,
-//     tableColumn: TableColumn,
-//     column: ColumnBands
-// }
+ /*
+interface BandCellProps {
+    children: React.ReactNode,
+    tableRow: TableRow,
+    tableColumn: TableColumn,
+    column: ColumnBands
+}
 
-// const BandCell = ({children, tableRow, tableColumn, column}: BandCellProps) => {
-//     let icon = '';
-//     if (column.title === 'Владелец') icon = 'person';
-//     return (
-//         <TableBandHeader.Cell
-//             tableRow={tableRow}
-//             tableColumn={tableColumn}
-//             column={column}
-//             className="text-secondary"
-//         >
-//             {children}
-//             <span
-//                 className={`ml-2 oi oi-${icon}`}
-//             />
-//         </TableBandHeader.Cell>
-//     );
-// };
+const BandCell = ({children, tableRow, tableColumn, column}: BandCellProps) => {
+    let icon = '';
+    if (column.title === 'Владелец') icon = 'person';
+    return (
+        <TableBandHeader.Cell
+            tableRow={tableRow}
+            tableColumn={tableColumn}
+            column={column}
+            className="text-secondary"
+        >
+            {children}
+            <span
+                className={`ml-2 oi oi-${icon}`}
+            />
+        </TableBandHeader.Cell>
+    );
+};
 
-// const HeaderCell = (className: string, ...restProps: any ) => (
-//     <TableHeaderRow.Cell
-//         {...restProps}
-//         className={`text-info ${className}`}
-//     />
-// );
+const HeaderCell = (className: string, ...restProps: any ) => (
+    <TableHeaderRow.Cell
+        {...restProps}
+        className={`text-info ${className}`}
+    />
+);
 
-// const RowDetail: React.ComponentType<TableRowDetail.ContentProps> = (row: any) => (
-//     <>
-//         {row.caseRecord}
-//     </>
-// );
+const RowDetail: React.ComponentType<TableRowDetail.ContentProps> = (row: any) => (
+    <>
+        {row.caseRecord}
+    </>
+);
+*/
 
 const tableColumnExtensions: Table.ColumnExtension[] = [
-    { columnName: 'id', width: 60, align: 'center'},
-    { columnName: 'name', width: 100, align: 'center'},
-    { columnName: 'kind', width: 100, align: 'center'},
-    { columnName: 'age', width: 100, align: 'center'},
-    { columnName: 'gender', width: 90, align: 'center'},
-    { columnName: 'caseRecord', width: 500, align: 'center'},
-    { columnName: 'ownerId', width: 60, align: 'center'},
-    { columnName: 'gender', width: 60, align: 'center'},
+    {columnName: 'id', width: 60, align: 'center'},
+    {columnName: 'name', width: 100, align: 'center'},
+    {columnName: 'kind', width: 100, align: 'center'},
+    {columnName: 'age', width: 100, align: 'center'},
+    {columnName: 'gender', width: 90, align: 'center'},
+    {columnName: 'caseRecord', width: 500, align: 'center'},
+    {columnName: 'ownerId', width: 60, align: 'center'},
+    {columnName: 'gender', width: 60, align: 'center'},
 ];
 
 const columns = [
@@ -136,11 +139,11 @@ const MainPage = () => {
         {
             title: 'Владелец',
             children: [
-                { columnName: 'ownerId' },
-                { columnName: 'ownerName' },
-                { columnName: 'ownerPhone' },
-                { columnName: 'ownerEmail' },
-                { columnName: 'ownerAddress' }
+                {columnName: 'ownerId'},
+                {columnName: 'ownerName'},
+                {columnName: 'ownerPhone'},
+                {columnName: 'ownerEmail'},
+                {columnName: 'ownerAddress'}
             ],
         }
     ]);
@@ -162,30 +165,30 @@ const MainPage = () => {
         }
     }, [data]);
 
-
-    if (loading) return <p>Loading...</p>
-    console.log(rows);
-
     return (
         <div>
             <h1>Наши пациенты</h1>
+            {loading &&
+            <Space>
+                <Spin size="large"/>
+            </Space>}
             <Grid rows={rows} columns={columns}>
-                <FilteringState defaultFilters={[]} />
-                <IntegratedFiltering />
+                <FilteringState defaultFilters={[]}/>
+                <IntegratedFiltering/>
                 <SortingState
-                    defaultSorting={[{ columnName: 'id', direction: 'asc' }]}
+                    defaultSorting={[{columnName: 'id', direction: 'asc'}]}
                 />
                 {/*<RowDetailState/>*/}
-                <IntegratedSorting />
+                <IntegratedSorting/>
                 <Table columnExtensions={tableColumnExtensions}/>
-                <TableHeaderRow showSortingControls />
+                <TableHeaderRow showSortingControls/>
                 <TableBandHeader
                     columnBands={columnBands}
                 />
                 {/*<TableRowDetail*/}
                 {/*    contentComponent={RowDetail}*/}
                 {/*/>*/}
-                <TableFilterRow />
+                <TableFilterRow/>
             </Grid>
         </div>
     );
