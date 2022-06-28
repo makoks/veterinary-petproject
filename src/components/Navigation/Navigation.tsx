@@ -3,8 +3,6 @@ import {Menu} from "antd";
 import {EditOutlined, SearchOutlined} from "@ant-design/icons";
 import 'antd/dist/antd.css';
 import {Link} from "react-router-dom";
-import MainPage from '../MainPage/MainPage';
-import {Router} from "react-router-dom";
 
 const Navigation = () => {
     return (
